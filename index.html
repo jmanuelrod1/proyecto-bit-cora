@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Innovation Logbook - Jose Melgarejo</title>
@@ -131,7 +132,7 @@
             padding: 50px;
             max-width: 800px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .glass-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); }
@@ -186,8 +187,9 @@
             margin-top: auto;
             font-size: 1rem;
             font-weight: 700;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, transform 0.2s;
         }
+        .btn:hover { opacity: 0.9; transform: scale(1.05); }
 
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -215,7 +217,9 @@
             border: none;
             font-family: inherit;
             font-size: 1.1rem;
+            transition: color 0.3s;
         }
+        .back-btn:hover { color: var(--text-main); }
         
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
         
@@ -228,6 +232,69 @@
         
         textarea { width: 100%; height: 600px; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-main); font-family: inherit; padding: 20px; resize: none; outline: none; }
 
+        /* Estilos de la tabla de Competitividad */
+        .subtitulo-bikeep {
+            text-align: center;
+            color: #1a3c2a; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 2.2rem;
+            margin-top: 20px; 
+            margin-bottom: 30px; 
+            font-weight: 800;
+            position: relative;
+        }
+        .subtitulo-bikeep::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #aed581;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }    
+        .tabla-contenedor {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #fff;
+            margin-top: 20px;
+        }
+        .tabla-bikeep {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: left;
+        }
+        .tabla-bikeep th {
+            background-color: #1a3c2a;
+            color: #ffffff;
+            padding: 18px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .tabla-bikeep td {
+            padding: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .tabla-bikeep tbody tr.fila-1 { background-color: #dcedc8; color: #333; }
+        .tabla-bikeep tbody tr.fila-2 { background-color: #c5e1a5; color: #333; }
+        .tabla-bikeep tbody tr.fila-3 { background-color: #aed581; color: #333; }
+        .tabla-bikeep tbody tr.fila-4 { background-color: #558b2f; color: #fff; }
+        .tabla-bikeep tbody tr.fila-5 { background-color: #33691e; color: #fff; }
+
+        .tabla-bikeep tbody tr {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: default;
+        }
+        .tabla-bikeep tbody tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -334,124 +401,104 @@ Apple logró el hito de 1000 songs in your pocket debido a un disco duro de 1.8 
         </div>
     </div>
 
-  <div id="agencia-view" class="detail-view">
-    <button class="back-btn" onclick="showMain()">← Volver al Logbook</button>
-    <h1 style="text-align: center; font-size: 4rem; width: 100%; margin-bottom: 40px;">
-        <span class="color-shift">FreeWheel</span>
-    </h1>
-    
-    <div class="box" style="max-width: 1000px; margin: 0 auto; padding-bottom: 40px;">
-        <iframe src="FreeWheel.pdf" style="height: 75vh; width: 100%; border: none; border-radius: 8px; margin-bottom: 40px;"></iframe>
+    <div id="agencia-view" class="detail-view">
+        <button class="back-btn" onclick="showMain()">← Volver al Logbook</button>
         
-        <style>
-            /* Estilo para el nuevo subtítulo */
-            .subtitulo-bikeep {
-                text-align: center;
-                color: #1a3c2a; /* Mismo verde elegante del encabezado de la tabla */
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                font-size: 2.2rem;
-                margin-top: 40px; 
-                margin-bottom: 30px; 
-                font-weight: 800;
-                position: relative;
-            }
-            /* Una pequeña línea decorativa debajo del subtítulo */
-            .subtitulo-bikeep::after {
-                content: '';
-                display: block;
-                width: 60px;
-                height: 4px;
-                background-color: #aed581; /* Verde claro de tu tabla */
-                margin: 10px auto 0;
-                border-radius: 2px;
-            }    
-            .tabla-contenedor {
-                width: 100%;
-                overflow-x: auto;
-                border-radius: 12px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                background-color: #fff;
-                margin-top: 20px;
-            }
-            .tabla-bikeep {
-                width: 100%;
-                border-collapse: collapse;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                text-align: left;
-            }
-            .tabla-bikeep th {
-                background-color: #1a3c2a; /* Verde oscuro elegante */
-                color: #ffffff;
-                padding: 18px;
-                font-weight: 700;
-                font-size: 1.1rem;
-            }
-            .tabla-bikeep td {
-                padding: 16px;
-                font-size: 0.95rem;
-                line-height: 1.5;
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-            }
-            /* Colores de las filas inspirados en tu Excel */
-            .tabla-bikeep tbody tr.fila-1 { background-color: #dcedc8; color: #333; }
-            .tabla-bikeep tbody tr.fila-2 { background-color: #c5e1a5; color: #333; }
-            .tabla-bikeep tbody tr.fila-3 { background-color: #aed581; color: #333; }
-            .tabla-bikeep tbody tr.fila-4 { background-color: #558b2f; color: #fff; }
-            .tabla-bikeep tbody tr.fila-5 { background-color: #33691e; color: #fff; }
+        <h1 style="text-align: center; font-size: 4.5rem; width: 100%; margin-bottom: 50px;">
+            <span class="color-shift">Oasis</span>
+        </h1>
+        
+        <div class="glass-card reveal" style="margin: 0 auto 80px; text-align: center; max-width: 900px;">
+            <h2 style="margin-bottom: 25px;">Propósito</h2>
+            <p style="font-size: 1.3rem; line-height: 1.8; color: var(--text-main); font-style: italic; margin-bottom: 35px;">
+                Diseñar tiempos de desconexión y seguridad mental,<br>
+                entendiendo que el trayecto entre la clase y el hogar es el<br>
+                espacio donde el estudiante procesa su aprendizaje.<br><br>
+                Nuestro valor radical es garantizar que ese proceso no se<br>
+                vea interrumpido por preocupaciones logísticas o de<br>
+                seguridad.
+            </p>
+            <button class="btn" onclick="openPdfPresentation()">Saber más</button>
+        </div>
 
-            /* Efecto interactivo "Guay" */
-            .tabla-bikeep tbody tr {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                cursor: default;
-            }
-            .tabla-bikeep tbody tr:hover {
-                transform: scale(1.02);
-                box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-                z-index: 10;
-                position: relative;
-            }
-        </style>
+        <h2 class="reveal" style="text-align: center; margin-bottom: 40px;">Análisis de Competitividad</h2>
+        
+        <div class="box reveal" style="max-width: 1000px; margin: 0 auto 50px; text-align: center;">
+            <img src="bikeep.png" alt="Bikeep" style="max-height: 180px; object-fit: contain; margin-bottom: 20px; border-radius: 12px;">
+            <p style="color: var(--text-main); text-align: left; padding: 10px 20px; font-size: 1.1rem; line-height: 1.7;">
+                <strong>Bikeep</strong> es una empresa tecnológica pionera en la infraestructura de estacionamiento seguro para micromovilidad urbana. Su sistema inteligente, que interconecta anclajes de hardware robusto con software de gestión mediante IoT, permite a los usuarios parquear con total tranquilidad operando todo desde una tarjeta inteligente o su celular. Se consolida como un gran referente para evaluar la integración de sistemas digitales y la confianza que se transmite al usuario final.
+            </p>
+        </div>
 
-        <div class="tabla-contenedor">
-            <table class="tabla-bikeep">
-                <thead>
-                    <tr>
-                        <th>Dimensión de Análisis</th>
-                        <th>¿Qué observar?</th>
-                        <th>Ejemplo (Caso Bikeep)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="fila-1">
-                        <td><strong>Propósito</strong></td>
-                        <td>¿Cual es la razon de ser de la empresa que le da sentido al resto de dimensiones?</td>
-                        <td>Garantizar tranquilidad en movilidad para sus usuarios.</td>
-                    </tr>
-                    <tr class="fila-2">
-                        <td><strong>Identidad Visual/Sensorial</strong></td>
-                        <td>¿Qué pretende transmitir con su forma, logo y/o nombre?</td>
-                        <td>De entrada, la palabra bikeep parece ser una combinación entre la palabra bike y keep, lo cual hace transmitir que tu bicicleta está segura. Respecto al color, es un verde neón (Hex: #AEFF00), muy utilizado en el ecosistema tecnológico. Su tipografía es una fuente moderna con bordes suaves que busca una apariencia cálida y amigable.</td>
-                    </tr>
-                    <tr class="fila-3">
-                        <td><strong>Sistema de conexiones</strong></td>
-                        <td>¿Qué sistema hay detrás y que otros servicios se conectan?</td>
-                        <td>En su backstage, se destaca principalmente su IoT lo cual ofrece distintos servicios: Monitoreo, automatización de notificaciones... Y dentro de los servicios que se interconectan se encuentra: Manejo de espacios públicos o privados, network con terceros (Paneles solares, Sistema de pagos), Datos urbanos, seguridad.</td>
-                    </tr>
-                    <tr class="fila-4">
-                        <td><strong>Diferenciación</strong></td>
-                        <td>¿Qué rasgos únicos tiene la empresa que los otros competidores no?</td>
-                        <td>Es su integración total, no solo venden productos físicos o digitales sino que están en ambos mundos, formando un control total, ya que muchas solo se limitan a ofrecer servicios logísticos, digitales o solo físicos. Aparte como ingeniero de diseño, destaco la elegancia y minimalismo de sus productos.</td>
-                    </tr>
-                    <tr class="fila-5">
-                        <td><strong>Conexión con el consumidor</strong></td>
-                        <td>¿Qué emocion o estado produce en el consumidor?</td>
-                        <td>Al analizar todas las anteriores dimensiones, a primera impresión, Bikeep cumple con su propósito que es garantizar tranquilidad. (Aunque la mayoría de usuarios son empresas como Universidades o entidades privadas).</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="box reveal" style="max-width: 1000px; margin: 0 auto 80px; padding-bottom: 40px; background: rgba(255,255,255,0.02);">
+            <div class="subtitulo-bikeep">Deconstrucción de Bikeep</div>
+            <div class="tabla-contenedor">
+                <table class="tabla-bikeep">
+                    <thead>
+                        <tr>
+                            <th>Dimensión de Análisis</th>
+                            <th>¿Qué observar?</th>
+                            <th>Ejemplo (Caso Bikeep)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fila-1">
+                            <td><strong>Propósito</strong></td>
+                            <td>¿Cual es la razon de ser de la empresa que le da sentido al resto de dimensiones?</td>
+                            <td>Garantizar tranquilidad en movilidad para sus usuarios.</td>
+                        </tr>
+                        <tr class="fila-2">
+                            <td><strong>Identidad Visual/Sensorial</strong></td>
+                            <td>¿Qué pretende transmitir con su forma, logo y/o nombre?</td>
+                            <td>De entrada, la palabra bikeep parece ser una combinación entre la palabra bike y keep, lo cual hace transmitir que tu bicicleta está segura. Respecto al color, es un verde neón (Hex: #AEFF00), muy utilizado en el ecosistema tecnológico. Su tipografía es una fuente moderna con bordes suaves que busca una apariencia cálida y amigable.</td>
+                        </tr>
+                        <tr class="fila-3">
+                            <td><strong>Sistema de conexiones</strong></td>
+                            <td>¿Qué sistema hay detrás y que otros servicios se conectan?</td>
+                            <td>En su backstage, se destaca principalmente su IoT lo cual ofrece distintos servicios: Monitoreo, automatización de notificaciones... Y dentro de los servicios que se interconectan se encuentra: Manejo de espacios públicos o privados, network con terceros (Paneles solares, Sistema de pagos), Datos urbanos, seguridad.</td>
+                        </tr>
+                        <tr class="fila-4">
+                            <td><strong>Diferenciación</strong></td>
+                            <td>¿Qué rasgos únicos tiene la empresa que los otros competidores no?</td>
+                            <td>Es su integración total, no solo venden productos físicos o digitales sino que están en ambos mundos, formando un control total, ya que muchas solo se limitan a ofrecer servicios logísticos, digitales o solo físicos. Aparte como ingeniero de diseño, destaco la elegancia y minimalismo de sus productos.</td>
+                        </tr>
+                        <tr class="fila-5">
+                            <td><strong>Conexión con el consumidor</strong></td>
+                            <td>¿Qué emocion o estado produce en el consumidor?</td>
+                            <td>Al analizar todas las anteriores dimensiones, a primera impresión, Bikeep cumple con su propósito que es garantizar tranquilidad. (Aunque la mayoría de usuarios son empresas como Universidades o entidades privadas).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 class="reveal" style="text-align: center; margin-bottom: 40px;">Moodboard Propio / Equipo</h2>
+        <div class="grid-layout reveal" style="max-width: 1000px; margin: 0 auto 80px;">
+            <div class="box" style="padding: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+                <img src="bikeep moodboard.jpg" alt="Moodboard Bikeep" style="width: 100%; height: 350px; object-fit: cover; border-radius: 12px;">
+                <h3 style="margin-top: 20px; font-size: 1.2rem; color: var(--text-muted);">Referente: Bikeep</h3>
+            </div>
+            <div class="box" style="padding: 15px; text-align: center; border: 1px solid var(--primary-glow);">
+                <img src="oasis moodboard.jpg" alt="Moodboard Oasis" style="width: 100%; height: 350px; object-fit: cover; border-radius: 12px;">
+                <h3 style="margin-top: 20px; font-size: 1.2rem; color: var(--accent);">Nuestra Visión: Oasis</h3>
+            </div>
+        </div>
+
+        <h2 class="reveal" style="text-align: center; margin-bottom: 40px;">Propuesta de Valor</h2>
+        <div class="glass-card reveal" style="max-width: 900px; margin: 0 auto 40px; text-align: center; border-color: var(--primary);">
+            <p style="font-size: 1.15rem; color: var(--text-main); line-height: 1.8;">
+                Oasis transforma el ecosistema de parqueo universitario de un simple punto logístico a un catalizador de bienestar. Nuestra solución de anclaje inteligente integra diseño funcional y tecnología invisible para eliminar la fricción y la ansiedad del transporte personal. Entregamos a los estudiantes la certeza absoluta de que sus vehículos están protegidos, permitiéndoles concentrar su energía y capacidad cognitiva en lo verdaderamente esencial: <strong>su aprendizaje, innovación y desarrollo personal</strong>.
+            </p>
         </div>
     </div>
-</div>
+
+    <div id="oasis-presentation-view" class="detail-view">
+        <button class="back-btn" onclick="backToOasis()">← Volver a Oasis</button>
+        <h1 style="text-align: center; margin-bottom: 40px;">Presentación del Proyecto</h1>
+        <div class="box" style="max-width: 1100px; margin: 0 auto;">
+            <iframe src="ASIS.pdf"></iframe>
+        </div>
+    </div>
 
     <script>
         const revealElements = document.querySelectorAll('.reveal');
@@ -465,6 +512,12 @@ Apple logró el hito de 1000 songs in your pocket debido a un disco duro de 1.8 
             document.querySelectorAll('.detail-view').forEach(v => v.style.display = 'none');
             document.getElementById(viewId).style.display = 'block';
             window.scrollTo(0, 0);
+            
+            // Re-trigger animations for elements inside the view
+            setTimeout(() => {
+                const viewElements = document.getElementById(viewId).querySelectorAll('.reveal');
+                viewElements.forEach(el => el.classList.add('active'));
+            }, 50);
         }
 
         function showMain() {
@@ -472,6 +525,22 @@ Apple logró el hito de 1000 songs in your pocket debido a un disco duro de 1.8 
             document.getElementById('main-view').style.display = 'block';
             window.scrollTo(0, 0);
         }
+
+        // Nuevas funciones para la navegación entre Oasis y el PDF
+        function openPdfPresentation() {
+            document.querySelectorAll('.detail-view').forEach(v => v.style.display = 'none');
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('oasis-presentation-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function backToOasis() {
+            document.querySelectorAll('.detail-view').forEach(v => v.style.display = 'none');
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('agencia-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
         
     </script>
-</body></html>
+</body>
+</html>
